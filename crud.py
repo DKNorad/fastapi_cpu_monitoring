@@ -110,6 +110,7 @@ async def generate_dummy_entries(session: Session, entries_num: int, hosts_num: 
 
 
 def get_cpu_threshold_crossed_periods(session: Session):
+    """Get a list of dicts with all the entries which have crossed the CPU util threshold of 80%."""
     q = session.query(CpuData) \
         .filter(CpuData.cpu_util > 80).with_entities(CpuData.host_id, CpuData.cpu_util, CpuData.timestamp) \
         .order_by(CpuData.host_id, CpuData.timestamp).all()
@@ -122,6 +123,7 @@ def get_cpu_threshold_crossed_periods(session: Session):
 
 
 def get_detailed_host_view(session: Session, host_ip):
+    """Get a list of dicts with a detailed view of all the hosts."""
     detailed_view = []
     q = session.query(CpuData).join(Host).filter(Host.ip == host_ip).order_by(CpuData.timestamp.desc()).all()
     for result in q:
