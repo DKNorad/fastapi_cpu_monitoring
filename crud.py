@@ -7,7 +7,7 @@ import schemas
 
 
 def get_max_cpu(session: Session):
-    """Return the maximum CPU utilization in percentage for one or more hosts in the form of dictionary"""
+    """Return the maximum CPU utilization in percentage for all hosts in the form of dictionary"""
     host_ips = [r.ip for r in session.query(Host.ip)]
     max_cpu_hosts = {}
     for host_ip in host_ips:
